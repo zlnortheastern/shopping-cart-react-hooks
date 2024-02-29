@@ -1,10 +1,11 @@
 import "./App.css";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import ProductsList from "./components/ProductsList.jsx";
 import CreateProductForm from "./components/CreateProductForm.jsx";
 import ShoppingCart from "./components/ShoppingCart.jsx";
+import { myFirebase } from "./models/MyFirebase.js";
 
 export default function App() {
   const [products, setProducts] = useState([
@@ -46,14 +47,25 @@ export default function App() {
     setProductsToBuy([...productsToBuy, product]);
   };
 
+  // Load data when component is mounted
+  useEffect(() => {
+    const getProducts = async () => {
+      const products = await myFirebase.getProducts();
+      console.log(products);
+      setProducts(products);
+    }
+
+    getProducts();
+  }, []);
+
   return (
     <div>
       <div className="row">
         <div className="col-8">
           <h1>Basic Shopping Site</h1>
 
-          <ProductsList products={products} onAddProductToBuy={onAddProductToBuy}/>
-          <CreateProductForm onAddProduct={onAddProduct}/>
+          <ProductsList products={products} onAddProductToBuy={onAddProductToBuy} />
+          <CreateProductForm onAddProduct={onAddProduct} />
         </div>
         {/* col-8 */}
 

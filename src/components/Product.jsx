@@ -38,10 +38,12 @@ export default function Product({ product, onAddProductToBuy, onUpdateProduct, o
       id: product.id,
       name: nameRef.current.value,
       price: +priceRef.current.value,
-      image: imageRef.current.value || "https://via.placeholder.com/150"
+      image: imageRef.current.value || "https://via.placeholder.com/150",
     })
   };
 
+  // Learned from ChatGPT 3.5 with prompt: "How can I handle product information update in firebase
+  // very easily like to edit product name and price in a product card with popup window or somethingelse?"
   return (
     <div className="col-4 mb-2">
       <div className="card">

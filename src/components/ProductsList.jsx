@@ -8,7 +8,7 @@ export default function ProductsList({ products, onAddProductToBuy, onUpdateProd
 
   // Mostly Learned from https://www.youtube.com/watch?v=IYCa1F-OWmk
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 6;
+  const productsPerPage = 20;
 
   // Calculate the indexes of the products to display on the current page
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -19,6 +19,11 @@ export default function ProductsList({ products, onAddProductToBuy, onUpdateProd
   const onPageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  // Redirect page if there is no elements in current products
+  if (currentProducts.length === 0 && currentPage !== 1) {
+    setCurrentPage(currentPage - 1);
+  }
 
   return (
     <>

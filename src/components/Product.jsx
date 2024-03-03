@@ -8,29 +8,34 @@ export default function Product({ product, onAddProductToBuy, onUpdateProduct, o
   const priceRef = useRef();
   const imageRef = useRef();
 
-
+  // Function to handle Add to Cart button
   const onAddToCart = () => {
     onAddProductToBuy(product);
   };
 
+  // Function to handle starting in-card editing
   const handleEdit = () => {
     setIsEditing(true);
     setEditedProduct(product);
   };
 
+  // Function to handle in-card editing cancel
   const handleCancelEdit = () => {
     setIsEditing(false);
   };
 
+  // Function to handle in-card editing save
   const handleSaveEdit = () => {
     onUpdateProduct(editedProduct);
     setIsEditing(false);
   };
 
+  // Function to handle product item deletion by pass product into parent function
   const handleDelete = () => {
     onDeleteProduct(product);
   };
 
+  // Function to handle in-card editing state
   const handleChange = (e) => {
     e.preventDefault();
 

@@ -8,10 +8,11 @@ import ShoppingCart from "./components/ShoppingCart.jsx";
 import { myFirebase } from "./models/MyFirebase.js";
 
 export default function App() {
+  // Hooks declaration
   const [products, setProducts] = useState([]);
-
   const [productsToBuy, setProductsToBuy] = useState([]);
 
+  // Get new product form value and store it into firebase
   const onAddProduct = async (product) => {
     const ref = await myFirebase.addProduct(product);
     setProducts([
@@ -24,23 +25,29 @@ export default function App() {
       },
     ]);
   };
+
+  // Update the product information from product card editing form
   const onUpdateProduct = async (product) => {
     await myFirebase.updateProduct(product);
     setProducts(products.map((p) => (p.id === product.id ? product : p)));
   };
 
+  // Perform deletion of product
   const onDeleteProduct = async (product) => {
     await myFirebase.deleteProduct(product.id);
     setProducts(products.filter((p) => p.id !== product.id));
   };
 
+  // Shopping cart item insertion
   const onAddProductToBuy = (product) => {
     setProductsToBuy([...productsToBuy, product]);
   };
 
+  // Shopping cart item deletion
   const onRemoveCart = (index) => {
     setProductsToBuy(productsToBuy.filter((_, i) => i !== index));
   }
+
   // Load data when component is mounted
   useEffect(() => {
     const getProducts = async () => {

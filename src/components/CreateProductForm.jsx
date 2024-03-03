@@ -8,11 +8,17 @@ export default function CreateProductForm({ onAddProduct }) {
   const onAddProductHelper = (e) => {
     e.preventDefault();
 
+    // Store data by Hooks
     onAddProduct({
       name: nameRef.current.value,
       price: +priceRef.current.value,
       image: imageRef.current.value || "https://via.placeholder.com/150"
-    })
+    });
+
+    // User input clearup
+    nameRef.current.value = '';
+    priceRef.current.value = '';
+    imageRef.current.value = '';
   };
 
   return (

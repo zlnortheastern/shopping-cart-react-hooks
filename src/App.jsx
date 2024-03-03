@@ -8,34 +8,15 @@ import ShoppingCart from "./components/ShoppingCart.jsx";
 import { myFirebase } from "./models/MyFirebase.js";
 
 export default function App() {
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      name: "Product 1",
-      price: 100,
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 200,
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      id: 3,
-      name: "Product 3",
-      price: 300,
-      image: "https://via.placeholder.com/150",
-    },
-  ]);
+  const [products, setProducts] = useState([]);
 
   const [productsToBuy, setProductsToBuy] = useState([]);
 
-  const onAddProduct = (product) => {
+  const onAddProduct = async (product) => {
+    await myFirebase.addProduct(product);
     setProducts([
       ...products,
       {
-        id: products.at(-1).id + 1,
         name: product.name,
         price: product.price,
         image: product.image,
@@ -47,11 +28,13 @@ export default function App() {
     setProductsToBuy([...productsToBuy, product]);
   };
 
+  const onRemoveCart = (index) => {
+    setProductsToBuy(productsToBuy.filter((_, i) => i !== index));
+  }
   // Load data when component is mounted
   useEffect(() => {
     const getProducts = async () => {
       const products = await myFirebase.getProducts();
-      console.log(products);
       setProducts(products);
     }
 
@@ -71,7 +54,7 @@ export default function App() {
 
         <div className="col-4">
           <h2>Shopping Cart</h2>
-          <ShoppingCart productsToBuy={productsToBuy} />
+          <ShoppingCart productsToBuy={productsToBuy} onRemoveProductToBuy={onRemoveCart}/>
         </div>
       </div>
     </div>

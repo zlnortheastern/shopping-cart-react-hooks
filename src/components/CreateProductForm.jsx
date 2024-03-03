@@ -4,13 +4,14 @@ import PropTypes from "prop-types";
 export default function CreateProductForm({ onAddProduct }) {
   const nameRef = useRef();
   const priceRef = useRef();
+  const imageRef = useRef();
   const onAddProductHelper = (e) => {
     e.preventDefault();
 
     onAddProduct({
       name: nameRef.current.value,
       price: +priceRef.current.value,
-      image: "https://via.placeholder.com/150"
+      image: imageRef.current.value || "https://via.placeholder.com/150"
     })
   };
 
@@ -30,6 +31,13 @@ export default function CreateProductForm({ onAddProduct }) {
             Price
           </label>
           <input type="number" className="form-control" id="price" ref={priceRef}/>
+        </div>
+
+        <div>
+          <label htmlFor="image" className="form-label">
+            Image(URL)
+          </label>
+          <input type="url" className="form-control" id="image" ref={imageRef}/>
         </div>
 
         <button className="btn btn-primary" onClick={onAddProductHelper}>

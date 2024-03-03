@@ -19,6 +19,7 @@ function MyFirebase() {
   const db = getFirestore(app);
   const r = {};
 
+  // Firebase read operation
   r.getProducts = async () => {
     const productRef = collection(db, "Product");
 
@@ -26,12 +27,16 @@ function MyFirebase() {
   };
 
 
+  // Firebase create operation
   r.addProduct = async (product) => {
     const productRef = collection(db, "Product");
     return await addDoc(productRef, product);
   };
 
-
+  // Firbase update operation
+  r.updateProduct = async (product) =>{
+    
+  }
   return r;
 }
 

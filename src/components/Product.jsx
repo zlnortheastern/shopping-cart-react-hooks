@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 export default function Product({ product, onAddProductToBuy, onUpdateProduct, onDeleteProduct }) {
   const [isEditing, setIsEditing] = useState(false);
+  const [currentProduct, setCurentProduct] = useState(product);
   const [editedProduct, setEditedProduct] = useState(product);
   const nameRef = useRef();
   const priceRef = useRef();
@@ -33,6 +34,7 @@ export default function Product({ product, onAddProductToBuy, onUpdateProduct, o
   // Function to handle in-card editing save
   const handleSaveEdit = () => {
     onUpdateProduct(editedProduct);
+    setCurentProduct(editedProduct);
     setIsEditing(false);
   };
 
@@ -78,9 +80,9 @@ export default function Product({ product, onAddProductToBuy, onUpdateProduct, o
             </div>
           ) : (
             <div>
-              <img src={editedProduct.image} className="card-img-top" style={{ width: "100%", height: "200px", objectFit: "cover" }} alt={editedProduct.name} />
-              <h5 className="card-title">{editedProduct.name}</h5>
-              <p className="card-text">${editedProduct.price}</p>
+              <img src={currentProduct.image} className="card-img-top" style={{ width: "100%", height: "200px", objectFit: "cover" }} alt={currentProduct.name} />
+              <h5 className="card-title">{currentProduct.name}</h5>
+              <p className="card-text">${currentProduct.price}</p>
               <div className="btn-group">
                 <button className="btn btn-primary" onClick={onAddToCart}>Add to Cart</button>
                 <button className="btn btn-secondary" onClick={handleEdit}>Edit</button>

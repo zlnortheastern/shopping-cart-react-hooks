@@ -2,7 +2,7 @@
 
 **Author:** Zhi Ling
 
-**Description:** This is a project a [React](https://react.dev/) [vite](https://vitejs.dev/) web application project. The application design a simple basic shopping application for user to perform operations on adding products into shopping cart, create products, edit products, and delete products.
+**Description:** This is a project a [React](https://react.dev/) [vite](https://vitejs.dev/) web application project. The application is designed to be a simple basic shopping application for user to perform operations on adding products into shopping cart, creating products, editing products, and deleting products.
 
 **Here is the** [**video**](https://youtu.be/rGIWtSphT_0) **for demo.**
 

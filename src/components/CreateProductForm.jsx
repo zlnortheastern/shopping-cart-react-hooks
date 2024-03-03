@@ -35,7 +35,7 @@ export default function CreateProductForm({ onAddProduct }) {
 
         <div>
           <label htmlFor="image" className="form-label">
-            Image(URL)
+            Image URL
           </label>
           <input type="url" className="form-control" id="image" ref={imageRef}/>
         </div>

@@ -13,15 +13,25 @@ export default function App() {
   const [productsToBuy, setProductsToBuy] = useState([]);
 
   const onAddProduct = async (product) => {
-    await myFirebase.addProduct(product);
+    const ref = await myFirebase.addProduct(product);
     setProducts([
       ...products,
       {
+        id: ref.id,
         name: product.name,
         price: product.price,
         image: product.image,
       },
     ]);
+  };
+  const onUpdateProduct = async (product) => {
+    await myFirebase.updateProduct(product);
+    setProducts(products.map((p) => (p.id === product.id ? product : p)));
+  };
+
+  const onDeleteProduct = async (product) => {
+    await myFirebase.deleteProduct(product.id);
+    setProducts(products.filter((p) => p.id !== product.id));
   };
 
   const onAddProductToBuy = (product) => {
@@ -47,14 +57,17 @@ export default function App() {
         <div className="col-8">
           <h1>Basic Shopping Site</h1>
 
-          <ProductsList products={products} onAddProductToBuy={onAddProductToBuy} />
+          <ProductsList products={products}
+            onAddProductToBuy={onAddProductToBuy}
+            onUpdateProduct={onUpdateProduct}
+            onDeleteProduct={onDeleteProduct} />
           <CreateProductForm onAddProduct={onAddProduct} />
         </div>
         {/* col-8 */}
 
         <div className="col-4">
           <h2>Shopping Cart</h2>
-          <ShoppingCart productsToBuy={productsToBuy} onRemoveProductToBuy={onRemoveCart}/>
+          <ShoppingCart productsToBuy={productsToBuy} onRemoveProductToBuy={onRemoveCart} />
         </div>
       </div>
     </div>

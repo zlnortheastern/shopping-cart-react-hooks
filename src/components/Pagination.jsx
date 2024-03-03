@@ -14,7 +14,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }) {
   // Generate by ChatGPT 3.5 with prompt: "Generate a nice pgination jsx with bootstrap style 
   // from https://getbootstrap.com/docs/5.3/components/pagination/#disabled-and-active-states"
   return (
-    <nav aria-label="Page navigation">
+    <nav aria-label="Page navigation" className="mt-3">
     <ul className="pagination">
       <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
         <button 

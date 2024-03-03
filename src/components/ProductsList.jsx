@@ -4,7 +4,7 @@ import Product from "./Product";
 import Pagination from "./Pagination";
 
 
-export default function ProductsList({ products, onAddProductToBuy }) {
+export default function ProductsList({ products, onAddProductToBuy, onUpdateProduct, onDeleteProduct }) {
 
   // Mostly Learned from https://www.youtube.com/watch?v=IYCa1F-OWmk
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,7 +25,12 @@ export default function ProductsList({ products, onAddProductToBuy }) {
       <h2>Products</h2>
       <div className="products row">
         {currentProducts.map((product, index) => (
-          <Product key={index} product={product} onAddProductToBuy={onAddProductToBuy} />
+          <Product
+            key={index}
+            product={product}
+            onAddProductToBuy={onAddProductToBuy}
+            onUpdateProduct={onUpdateProduct}
+            onDeleteProduct={onDeleteProduct} />
         ))}
       </div>
       <Pagination
@@ -40,4 +45,6 @@ export default function ProductsList({ products, onAddProductToBuy }) {
 ProductsList.propTypes = {
   products: PropTypes.array.isRequired,
   onAddProductToBuy: PropTypes.func.isRequired,
+  onUpdateProduct: PropTypes.func.isRequired,
+  onDeleteProduct: PropTypes.func.isRequired,
 };

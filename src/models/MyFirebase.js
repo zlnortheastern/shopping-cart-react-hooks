@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { collection, getDocs, getFirestore, addDoc} from "firebase/firestore"
+import { collection, getDocs, getFirestore, addDoc, deleteDoc, doc, updateDoc} from "firebase/firestore"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -18,25 +18,37 @@ function MyFirebase() {
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
   const r = {};
+  const productRef = collection(db, "Product");
 
   // Firebase read operation
   r.getProducts = async () => {
-    const productRef = collection(db, "Product");
-
-    return (await getDocs(productRef)).docs.map((doc) => doc.data());
+    const querySnapshot = await getDocs(productRef);
+    const products = querySnapshot.docs.map(doc => ({
+      ...doc.data(),
+      id: doc.id
+    }));
+    return products;
   };
-
 
   // Firebase create operation
   r.addProduct = async (product) => {
-    const productRef = collection(db, "Product");
     return await addDoc(productRef, product);
   };
 
-  // Firbase update operation
-  r.updateProduct = async (product) =>{
-    
-  }
+  // Firebase update operation
+  r.updateProduct = async (product) => {
+    return await updateDoc(doc(db,"Product", product.id), {
+      name: product.name,
+      price: product.price,
+      image: product.image,
+    });
+  };
+
+  // Firebase delete operation
+  r.deleteProduct = async (id) =>{
+    return await deleteDoc(doc(db,"Product", id));
+  };
+
   return r;
 }
 

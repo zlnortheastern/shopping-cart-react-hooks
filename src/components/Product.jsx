@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 
 export default function Product({ product, onAddProductToBuy, onUpdateProduct, onDeleteProduct }) {
@@ -7,6 +7,12 @@ export default function Product({ product, onAddProductToBuy, onUpdateProduct, o
   const nameRef = useRef();
   const priceRef = useRef();
   const imageRef = useRef();
+
+  // Update product information whenever props changes
+  useEffect(() => {
+    setEditedProduct(product); // Reset editedProduct whenever product prop changes
+    setIsEditing(false); // Ensure editing mode is disabled when product changes
+  }, [product]);
 
   // Function to handle Add to Cart button
   const onAddToCart = () => {

@@ -12,6 +12,7 @@ export default function Product({ product, onAddProductToBuy, onUpdateProduct, o
   // Update product information whenever props changes
   useEffect(() => {
     setEditedProduct(product); // Reset editedProduct whenever product prop changes
+    setCurentProduct(product);
     setIsEditing(false); // Ensure editing mode is disabled when product changes
   }, [product]);
 

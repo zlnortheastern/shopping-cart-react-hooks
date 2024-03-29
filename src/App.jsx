@@ -30,6 +30,7 @@ export default function App() {
   const onUpdateProduct = async (product) => {
     await myFirebase.updateProduct(product);
     setProducts(products.map((p) => (p.id === product.id ? product : p)));
+    setProductsToBuy(productsToBuy.map((p) => (p.id === product.id ? { ...product } : p)));
   };
 
   // Perform deletion of product
